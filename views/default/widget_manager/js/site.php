@@ -54,6 +54,10 @@ function widget_manager_init() {
 
 		$('#elgg-widget-'+widgetId+' .elgg-widget-handle h3').html(completeTitle);
 	});
+
+	$('.elgg-widget-instance-content_by_tag select[name="params[show_search_link]"]').change(function() {
+		$('.search_link_text').toggle();
+	});
 }
 
 elgg.register_hook_handler('init', 'system', widget_manager_init);

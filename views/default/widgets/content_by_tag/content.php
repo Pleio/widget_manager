@@ -303,7 +303,13 @@ if (empty($result)) {
 		$search_postfix = "&entity_subtype=" . $content_type[0] . "&entity_type=object&search_type=entities";
 	}
 	
-	$result .= "<div class='elgg-widget-more'>" . elgg_view("output/url", array("text" => elgg_echo("searchtitle", array($tags_text)), "href" => "search?q=" . $tags_text . $search_postfix)) . "</div>";
+	if ($widget->search_link_text) {
+		$search_text = $widget->search_link_text;
+	} else {
+		$search_text = elgg_echo("searchtitle", array($tags_text));
+	}
+	
+	$result .= "<div class='elgg-widget-more'>" . elgg_view("output/url", array("text" => $search_text, "href" => "search?q=" . $tags_text . $search_postfix)) . "</div>";
 }
 echo $result;
 

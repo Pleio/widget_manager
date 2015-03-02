@@ -145,6 +145,12 @@ if ($widget->context == "groups") {
 	<div class="elgg-subtext"><?php echo elgg_echo("widgets:content_by_tag:show_search_link:disclaimer"); ?></div>
 </div>
 
+<div class="search_link_text" <?php echo ($widget->show_search_link != 'yes' ? 'style="display:none"' : null); ?>>
+	<?php echo elgg_echo("widgets:content_by_tag:search_link:text"); ?><br />
+	<?php echo elgg_view("input/text", array("name" => "params[search_link_text]", "value" => $widget->search_link_text)); ?>
+	<div class="elgg-subtext"><?php echo elgg_echo("widgets:content_by_tag:show_search_link:explanation"); ?></div>
+</div>
+
 <div>
 	<?php echo elgg_echo("widgets:content_by_tag:display_option"); ?><br />
 	<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>

@@ -202,6 +202,8 @@ $content_by_tag = array(
 	'widgets:content_by_tag:highlight_first' => "Number of highlighted items (slim only)",
 	'widgets:content_by_tag:show_search_link' => "Show search link",
 	'widgets:content_by_tag:show_search_link:disclaimer' => "Search results may vary from widget content",
+	'widgets:content_by_tag:search_link:text' => "Search link text",
+	'widgets:content_by_tag:show_search_link:explanation' => "Leave empty for the default text",
 	'widgets:content_by_tag:show_avatar' => "Show user avatar",
 	'widgets:content_by_tag:show_timestamp' => "Show content timestamp",
 );
