@@ -28,6 +28,7 @@ if (!empty($q)) {
 		foreach ($entities as $entity) {
 			$entity_data = array();
 			
+			$entity_data[] = elgg_view_entity_icon($entity, "small");
 			$entity_data[] = elgg_view("output/url", array("text" => $entity->name, "href" => $entity->getURL()));
 			
 			$entity_data[] = $entity->username;
@@ -54,6 +55,7 @@ if (empty($result)) {
 	echo elgg_echo("notfound");
 } else {
 	echo "<table class='elgg-table mtm'><tr>";
+	echo "<th></th>";
 	echo "<th>" . elgg_echo("name") . "</th>";
 	echo "<th>" . elgg_echo("username") . "</th>";
 	echo "<th>" . elgg_echo("email") . "</th>";
