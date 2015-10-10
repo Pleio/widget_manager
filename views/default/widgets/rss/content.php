@@ -32,6 +32,7 @@ if (!empty($feed_url)) {
 	
 	$feed = new SimplePie();
 	$feed->set_feed_url($feed_url);
+	$feed->set_timeout(2);
 	$feed->set_cache_location(WIDGETS_RSS_CACHE_LOCATION);
 	$feed->set_cache_duration(WIDGETS_RSS_CACHE_DURATION);
 	$feed->init();
