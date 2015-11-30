@@ -1,5 +1,7 @@
 <?php
 ?>
+//<script>
+
 // add a custom case-insensitive Contains function for widget filter (jQuery > 1.3)
 jQuery.expr[':'].Contains = function(a,i,m){
      return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase())>=0;
@@ -26,7 +28,16 @@ function widget_manager_init() {
 			$(".widget-manager-groups-widgets-top-row").removeClass("widget-manager-groups-widgets-top-row-highlight");
 		}
 	});
-	
+
+	$(".elgg-widget-content .elgg-list-entity-sortable").sortable({
+		update: function(event, ui) {
+			var url = elgg.security.addToken('action/widget_manager/reorder?');
+			var data = $(this).sortable('serialize');
+
+			data += "&guid=" + $(this).parent().siblings('.elgg-widget-edit').find('input:hidden[name="guid"]').val();
+			$.post(url, data);
+		}
+	});
 
 	// live update of widget titles
     $('.elgg-form-widgets-save input.elgg-button-submit').live('click', function() {

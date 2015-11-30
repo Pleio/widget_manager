@@ -174,11 +174,34 @@ if (($widget->context == "groups") && ($widget->group_only !== "no")) {
 	$options["container_guids"] = array($widget->container_guid);
 }
 
+if ($widget->canEdit() && !elgg_in_context('dashboard')) {
+	$options["list_class"] = "elgg-list-entity-sortable";
+}
+
+$entities = elgg_get_entities($options);
+
+if (!elgg_in_context('dashboard')) {
+	if ($widget->content_order) {
+		$order = $widget->content_order;
+		uasort($entities, function($a, $b) use ($order, &$entities) {
+			if (array_key_exists($a->guid, $order) && array_key_exists($b->guid, $order)) {
+				return ($order[$a->guid] < $order[$b->guid]) ? -1 : 1;
+			} elseif (array_key_exists($a->guid, $order) && !array_key_exists($b->guid, $order)) {
+				return -1;
+			} elseif (!array_key_exists($a->guid, $order) && array_key_exists($b->guid, $order)) {
+				return 1;
+			} else {
+				return ($a->time_created > $b->time_created) ? -1 : 1;
+			}
+		});
+	}
+}
+
 elgg_push_context("search");
 
 $display_option = $widget->display_option;
 if (in_array($display_option, array("slim","simple"))) {
-	if ($entities = elgg_get_entities($options)) {
+	if ($entities) {
 		$num_highlighted = (int) $widget->highlight_first;
 		$result .= "<ul class='elgg-list'>";
 
@@ -275,14 +298,14 @@ if (in_array($display_option, array("slim","simple"))) {
 		$result .= "</ul>";
 	}
 } else {
-	
 	if ($display_option == "simple_blog") {
-		// load blog_tools simple style
 		elgg_push_context("simple");
-		$result = elgg_list_entities($options);
+	}
+
+	$result = elgg_view_entity_list($entities, $options);
+
+	if ($display_option == "simple_blog") {
 		elgg_pop_context();
-	} else {
-		$result = elgg_list_entities($options);
 	}
 }
 
