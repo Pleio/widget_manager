@@ -346,3 +346,12 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 		return $sorted_widgets;
 	}
 	
+
+	/*
+	 * This function can be used by other plugins to detect if the widget manager has a reorder functionality.
+	 *
+	 */
+
+	function widget_manager_has_reorder() {
+		return true;
+	}
