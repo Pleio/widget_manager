@@ -1,0 +1,14 @@
+{
+    "name": "pleio/widget_manager",
+    "description": "This plugin allows to manage widgets in seperate pages and groups.",
+    "type": "elgg-plugin",
+    "keywords": ["elgg", "plugin", "widgets"],
+    "license": "GPL-2.0",
+    "support": {
+        "source": "https://github.com/Pleio/widget_manager",
+        "issues": "https://github.com/Pleio/widget_manager/issues"
+    },
+    "require": {
+        "composer/installers": "^1.0.8"
+    }
+}
