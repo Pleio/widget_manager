@@ -31,7 +31,7 @@ function widget_manager_init() {
 
 	$(".elgg-widget-content .elgg-list-entity-sortable").sortable({
 		update: function(event, ui) {
-			var url = elgg.security.addToken('action/widget_manager/reorder?');
+			var url = elgg.security.addToken(elgg.get_site_url() + 'action/widget_manager/reorder?');
 			var data = $(this).sortable('serialize');
 
 			data += "&guid=" + $(this).parent().siblings('.elgg-widget-edit').find('input:hidden[name="guid"]').val();
