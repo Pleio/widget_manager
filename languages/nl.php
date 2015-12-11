@@ -183,5 +183,9 @@ $language = array (
   'widget_manager:action:manage:error:context' => 'Ongeldige context voor het opslaan van de widget configuratie',
   'widget_manager:action:manage:error:save_setting' => 'Fout tijdens het opslaan van instelling %s voor widget %s',
   'widget_manager:action:manage:success' => 'Widget configuratie succesvol opgeslagen',
+  'widgets:content_by_tag:order_by' => 'Hoe moet de content worden gesorteerd',
+  'widgets:content_by_tag:order_by:time_created' => 'Aanmaakdatum',
+  'widgets:content_by_tag:order_by:alpha' => 'Alfabetisch',
+  'widgets:content_by_tag:order_by:manual' => 'Handmatig',
 );
 add_translation("nl", $language);

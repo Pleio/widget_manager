@@ -149,6 +149,10 @@ if ($names_where && $values_where) {
 	$wheres[] = "($values_where AND $access)";
 }
 
+if ($widget->order_by == 'alpha') {
+	$joins[] = "JOIN {$dbprefix}objects_entity oe ON e.guid = oe.guid";
+}
+
 $options = array(
 	"type" => "object",
 	"subtypes" => $content_type,
@@ -174,13 +178,16 @@ if (($widget->context == "groups") && ($widget->group_only !== "no")) {
 	$options["container_guids"] = array($widget->container_guid);
 }
 
-if ($widget->canEdit() && !elgg_in_context('dashboard')) {
-	$options["list_class"] = "elgg-list-entity-sortable";
-}
+if ($widget->order_by == 'alpha') {
+	$options['order_by'] = 'oe.title ASC';
+	$entities = elgg_get_entities($options);
+} elseif ($widget->order_by == 'manual') {
+	if ($widget->canEdit()) {
+		$options["list_class"] = "elgg-list-entity-sortable";
+	}
 
-$entities = elgg_get_entities($options);
+	$entities = elgg_get_entities($options);
 
-if (!elgg_in_context('dashboard')) {
 	if ($widget->content_order) {
 		$order = $widget->content_order;
 		uasort($entities, function($a, $b) use ($order, &$entities) {
@@ -195,6 +202,8 @@ if (!elgg_in_context('dashboard')) {
 			}
 		});
 	}
+} else {
+	$entities = elgg_get_entities($options);
 }
 
 elgg_push_context("search");
