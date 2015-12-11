@@ -203,7 +203,7 @@ $display_option = $widget->display_option;
 if (in_array($display_option, array("slim","simple"))) {
 	if ($entities) {
 		$num_highlighted = (int) $widget->highlight_first;
-		$result .= "<ul class='elgg-list'>";
+		$result .= "<ul class='elgg-list {$options["list_class"]}'>";
 
 		$show_avatar = true;
 		if ($widget->show_avatar == "no") {
@@ -235,7 +235,7 @@ if (in_array($display_option, array("slim","simple"))) {
 				$entity_url = $entity->getURL();
 			}
 			
-			$result .= "<li class='elgg-item'>";
+			$result .= "<li id='elgg-object-{$entity->guid}' class='elgg-item'>";
 
 			if ($display_option == "slim") {
 				// slim
