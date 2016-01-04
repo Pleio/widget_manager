@@ -37,6 +37,9 @@ if (elgg_is_active_plugin("groups")) {
 if (elgg_is_active_plugin("questions")) {
 	$content_options_values["question"] = elgg_echo("item:object:question");
 }
+if (elgg_is_active_plugin("static")) {
+	$content_options_values["static"] = elgg_echo("item:object:static");
+}
 
 if (empty($content_type) && !empty($content_options_values)) {
 	$keys = array_keys($content_options_values);
@@ -83,7 +86,7 @@ if (elgg_view_exists("input/user_autocomplete")) {
 			"" => elgg_echo("all"),
 			$user->getGUID() => $user->name
 		);
-		
+
 		if ($friends = $user->getFriends("", false)) {
 			foreach ($friends as $friend) {
 				$options_values[$friend->guid] = $friend->name;

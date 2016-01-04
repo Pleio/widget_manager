@@ -27,6 +27,8 @@ if (empty($content_type)) {
 		$content_type = "videolist_item";
 	} elseif (elgg_is_active_plugin("event_manager")) {
 		$content_type = "event";
+	} elseif (elgg_is_active_plugin("static")) {
+		$content_type = "static";
 	} elseif (elgg_is_active_plugin("tasks")) {
 		$content_type = "task_top";
 	}	elseif (elgg_is_active_plugin("groups")) {
@@ -95,7 +97,7 @@ if (!empty($values)) {
 		if ($i !== 0) {
 			if ($tags_option == "and") {
 				// AND
-				
+
 				if ($i > 1) {
 					// max 2 ANDs
 					break;
@@ -122,20 +124,20 @@ if ($excluded_values) {
 	// and value_id not in
 	$value_ids = array();
 	$name_ids = array();
-	
+
 	foreach ($excluded_values as $excluded_value) {
 		$value_ids[] = add_metastring($excluded_value);
 	}
-	
+
 	$names = array("tags", "universal_categories");
 	foreach ($names as $name) {
 		$name_ids[] = add_metastring($name);
 	}
-	
+
 	if (!empty($values_where)) {
 		$values_where .= " AND ";
 	}
-	
+
 	$values_where .= "e.guid NOT IN (SELECT DISTINCT entity_guid FROM " . $dbprefix . "metadata WHERE name_id IN (" . implode(",", $name_ids) . ") AND value_id IN (" . implode(",", $value_ids) . "))";
 }
 
@@ -229,7 +231,7 @@ if (in_array($display_option, array("slim","simple"))) {
 			$body = "";
 
 			$target = null;
-			
+
 			if (elgg_instanceof($entity, "object", "bookmarks")) {
 				$entity_url = $entity->address;
 				if (elgg_is_active_plugin("bookmarks_tools")) {
@@ -243,7 +245,7 @@ if (in_array($display_option, array("slim","simple"))) {
 			} else {
 				$entity_url = $entity->getURL();
 			}
-			
+
 			$result .= "<li id='elgg-object-{$entity->guid}' class='elgg-item'>";
 
 			if ($display_option == "slim") {
@@ -259,14 +261,14 @@ if (in_array($display_option, array("slim","simple"))) {
 					$text .= "<br />";
 
 					$description = elgg_get_excerpt($entity->description, 170);
-					
+
 					if ($show_timestamp) {
 						$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span>";
 						if (!empty($description)) {
 							$text .= " - ";
 						}
 					}
-					
+
 					$text .= $description;
 					if (elgg_substr($description, -3, 3) == '...') {
 						$text .= " <a href=\"{$entity->getURL()}\">" . strtolower(elgg_echo('more')) . '</a>';
@@ -322,25 +324,25 @@ if (empty($result)) {
 	$result = elgg_echo("notfound");
 } elseif ($widget->show_search_link == "yes" && !empty($widget->tags) && elgg_is_active_plugin("search")) {
 	$tags = $widget->tags;
-	
+
 	if (elgg_is_active_plugin("search_advanced")) {
 		$tags_text = $tags;
 	} else {
 		$tags = string_to_tag_array($tags);
 		$tags_text = $tags[0];
 	}
-	
+
 	$search_postfix = "";
 	if (count($content_type) == 1) {
 		$search_postfix = "&entity_subtype=" . $content_type[0] . "&entity_type=object&search_type=entities";
 	}
-	
+
 	if ($widget->search_link_text) {
 		$search_text = $widget->search_link_text;
 	} else {
 		$search_text = elgg_echo("searchtitle", array($tags_text));
 	}
-	
+
 	$result .= "<div class='elgg-widget-more'>" . elgg_view("output/url", array("text" => $search_text, "href" => "search?q=" . $tags_text . $search_postfix)) . "</div>";
 }
 echo $result;
