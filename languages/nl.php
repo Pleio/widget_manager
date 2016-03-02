@@ -18,7 +18,7 @@ $language = array (
   'widgets:likes:settings:like_type:user_likes' => 'Recent leuk gevonden door jou',
   'widgets:likes:settings:like_type:most_liked' => 'Content met de meeste likes',
   'widgets:likes:settings:like_type:recently_liked' => 'Content die recent is geliked',
-  'widgets:content_by_tag:show_avatar' => 'Toon avatfar van gebruiker',
+  'widgets:content_by_tag:show_avatar' => 'Toon avatar van gebruiker',
   'widgets:content_by_tag:show_timestamp' => 'Toon tijdstip van content',
   'widgets:content_by_tag:excluded_tags' => 'Uit te sluiten tags',
   'widgets:twitter_search:embed_code' => 'Twitter Widget Embed Code',
@@ -185,6 +185,7 @@ $language = array (
   'widget_manager:action:manage:success' => 'Widget configuratie succesvol opgeslagen',
   'widgets:content_by_tag:order_by' => 'Hoe moet de content worden gesorteerd',
   'widgets:content_by_tag:order_by:time_created' => 'Aanmaakdatum',
+  'widgets:content_by_tag:order_by:time_updated' => 'Laatst gewijzigd',
   'widgets:content_by_tag:order_by:alpha' => 'Alfabetisch',
   'widgets:content_by_tag:order_by:manual' => 'Handmatig',
 );

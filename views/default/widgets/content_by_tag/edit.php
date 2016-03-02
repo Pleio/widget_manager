@@ -166,6 +166,7 @@ if ($widget->context == "groups") {
 		"name" => "params[order_by]",
 		"options_values" => array (
 			'time_created' => elgg_echo("widgets:content_by_tag:order_by:time_created"),
+            'time_updated' => elgg_echo("widgets:content_by_tag:order_by:time_updated"),
 			'alpha' => elgg_echo("widgets:content_by_tag:order_by:alpha"),
 			'manual' => elgg_echo("widgets:content_by_tag:order_by:manual")
 		),

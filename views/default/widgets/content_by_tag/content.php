@@ -183,6 +183,9 @@ if (($widget->context == "groups") && ($widget->group_only !== "no")) {
 if ($widget->order_by == 'alpha') {
 	$options['order_by'] = 'oe.title ASC';
 	$entities = elgg_get_entities($options);
+} elseif ($widget->order_by == 'time_updated') {
+	$options['order_by'] = 'e.time_updated DESC';
+	$entities = elgg_get_entities($options);
 } elseif ($widget->order_by == 'manual') {
 	if ($widget->canEdit()) {
 		$options["list_class"] = "elgg-list-entity-sortable";

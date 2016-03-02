@@ -208,6 +208,7 @@ $content_by_tag = array(
 	'widgets:content_by_tag:show_timestamp' => "Show content timestamp",
 	'widgets:content_by_tag:order_by' => "How to order the content",
 	'widgets:content_by_tag:order_by:time_created' => "Time created",
+    'widgets:content_by_tag:order_by:time_updated' => "Time updated",
 	'widgets:content_by_tag:order_by:alpha' => "Alphabetically",
 	'widgets:content_by_tag:order_by:manual' => "Manually",
 );
