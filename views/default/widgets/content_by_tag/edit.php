@@ -40,6 +40,13 @@ if (elgg_is_active_plugin("questions")) {
 if (elgg_is_active_plugin("static")) {
 	$content_options_values["static"] = elgg_echo("item:object:static");
 }
+if (elgg_is_active_plugin("tidypics")) {
+    $content_options_values["album"] = elgg_echo("item:object:album");
+    $content_options_values["image"] = elgg_echo("item:object:image");
+}
+if (elgg_is_active_plugin("etherpad")) {
+	$content_options_values["etherpad"] = elgg_echo("item:object:etherpad");
+}
 
 if (empty($content_type) && !empty($content_options_values)) {
 	$keys = array_keys($content_options_values);
