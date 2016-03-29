@@ -35,18 +35,25 @@ if (empty($activity_content)) {
 				} else {
 					$value = $river_options['type_subtype_pairs'][$type];
 				}
-				
+
 				$value[] = $subtype;
 			}
 			$river_options['type_subtype_pairs'][$type] = $value;
 		}
 	}
-	
+
 	$activity = elgg_list_river($river_options);
 }
 
-if (empty($activity)) {
-	$activity = elgg_echo("river:none");
-}
+if (!empty($activity)) {
+	echo $activity;
 
-echo $activity;
+	$more_link = elgg_view('output/url', array(
+		'href' => '/activity',
+		'text' => elgg_echo('widget_manager:widgets:index_activity:show_more'),
+		'is_trusted' => true
+	));
+	echo "<span class=\"elgg-widget-more\">$more_link</span>";
+} else {
+	echo elgg_echo("river:none");
+}

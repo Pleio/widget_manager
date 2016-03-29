@@ -146,6 +146,7 @@ $english = array(
 
 	// index_activity
 	'widget_manager:widgets:index_activity:description' => "Show the latest activity on your site",
+	'widget_manager:widgets:index_activity:show_more' => "More activities",
 
 	// image_slider
 	'widget_manager:widgets:image_slider:name' => "Image Slider",

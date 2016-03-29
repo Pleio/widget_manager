@@ -176,6 +176,7 @@ $language = array (
   'widget_manager:widgets:index_members_online:no_result' => 'Geen gebruikers gevonden',
   'widget_manager:widgets:index_bookmarks:description' => 'Toon de laatste favorieten van je community',
   'widget_manager:widgets:index_activity:description' => 'Toon de laatste activiteit van de community',
+  'widget_manager:widgets:index_activity:show_more' => 'Meer activiteiten',
   'widget_manager:forms:settings:can_add' => 'Kan worden toegevoegd',
   'widget_manager:button:add' => 'Voeg toe',
   'widget_manager:widgets:lightbox:title:dashboard' => 'Voeg widgets toe aan je dashboard',
