@@ -42,13 +42,29 @@ if (!empty($style)) {
 	$style = "<style type='text/css'>" . $style . "</style>";
 }
 
+$top_row_setting = elgg_get_plugin_setting("index_top_row", "widget_manager");
+if ($top_row_setting && $top_row_setting != "none") {
+	$top_row = "<div id='elgg-widget-col-4' class='elgg-widgets'>";
+	$top_row .= widget_manager_list_top_widgets(elgg_get_page_owner_entity(), elgg_get_context());
+	$top_row .= "</div>";
+}
+
+if (elgg_is_admin_logged_in()) {
+	$min_height = "min-height: 50px !important;";
+} else {
+	$min_height = "min-height: 0px !important;";
+}
+$style = "#elgg-widget-col-4 { width: 100%; " . $min_height . "}";
+$style = "<style type='text/css'>" . $style . "</style>";
+
 // draw the page
 $params = array(
+	'content' => $top_row,
 	'num_columns' => $num_columns,
 	'exact_match' => true
 );
-$content = elgg_view_layout('widgets', $params);
 
+$content = elgg_view_layout('widgets', $params);
 $body = elgg_view_layout('one_column', array('content' => $style . $content));
 
 echo elgg_view_page("", $body);

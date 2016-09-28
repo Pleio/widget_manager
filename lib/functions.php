@@ -347,11 +347,36 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 	}
 	
 
-	/*
-	 * This function can be used by other plugins to detect if the widget manager has a reorder functionality.
-	 *
-	 */
+/*
+ * This function can be used by other plugins to detect if the widget manager has a reorder functionality.
+ *
+ */
 
-	function widget_manager_has_reorder() {
-		return true;
+function widget_manager_has_reorder() {
+	return true;
+}
+
+function widget_manager_list_top_widgets($page_owner, $context = "index") {
+	elgg_push_context("widgets");
+
+	$widgets = elgg_get_widgets($page_owner->guid, $context);
+	$widget_types = elgg_get_widget_types("index", false);
+	$widget_content = "";
+
+	if (isset($widgets[4])) {
+		$column_widgets = $widgets[4];
+		if (sizeof($column_widgets) > 0) {
+			foreach ($column_widgets as $widget) {
+				if (array_key_exists($widget->handler, $widget_types)) {
+					$widget_content .= elgg_view_entity($widget, array(
+						'show_access' => true
+					));
+				}
+			}
+		}
 	}
+
+	elgg_pop_context();
+
+	return $widget_content;
+}
