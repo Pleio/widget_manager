@@ -194,7 +194,7 @@ function widget_manager_widget_layout_permissions_check($hook_name, $entity_type
 		if (($page_owner instanceof ElggGroup) && $page_owner->canEdit($user->getGUID())) {
 			// group widget layout
 			$return = true;
-		} elseif (!in_array($context, array("index", "dashboard", "profile", "groups"))) {
+		} elseif (!in_array($context, array("dashboard", "profile", "groups"))) {
 			// extra widget contexts
 			$contexts_config = json_decode(elgg_get_plugin_setting("extra_contexts_config", "widget_manager"), true);
 			if (!is_array($contexts_config)) {
