@@ -7,8 +7,9 @@ $dbprefix = elgg_get_config("dbprefix");
 
 // get widget settings
 $count = sanitise_int($widget->content_count, false);
-if (empty($count)) {
-	$count = 8;
+
+if (empty($count) || $count > 10 || $count < 0) {
+	$count = 10;
 }
 
 $content_type = $widget->content_type;
