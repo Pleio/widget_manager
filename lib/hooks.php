@@ -236,10 +236,12 @@ function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $pa
 				$result = "/friends/" . $owner->username;
 				break;
 			case "album_view":
-				if($owner instanceof ElggGroup){
+				if($owner instanceof ElggGroup) {
 					$result = "/photos/group/" . $owner->getGUID() . "/all";
-				} else {
+				} elseif ($owner instanceof ElggUser) {
 					$result = "/photos/owner/" . $owner->username;
+				} else {
+					$result = "/photos/all";
 				}
 				break;
 			case "latest":
