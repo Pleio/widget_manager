@@ -13,7 +13,7 @@ $options = array(
 	"relationship" => "member_of_site",
 	"relationship_guid" => $vars["config"]->site_guid,
 	"inverse_relationship" => true,
-	"wheres" => array("ue.last_action >= " . (time() - 600)),
+	"wheres" => array("ue.last_action >= " . (time() - 3600)),
 	"joins" => array("JOIN " . $vars["config"]->dbprefix . "users_entity ue ON e.guid = ue.guid"),
 	"order_by" => "ue.last_action desc",
 	"full_view" => false,
