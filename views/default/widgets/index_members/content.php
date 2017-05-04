@@ -10,7 +10,7 @@ if (empty($count) || $count < 1 || $count > 10) {
 $site = elgg_get_site_entity();
 
 if (class_exists("ESInterface")) {
-	$results = ESInterface::get()->search("", SEARCH_DEFAULT, "user", [], $count, 0, "name", "asc");
+	$results = ESInterface::get()->search("*", SEARCH_DEFAULT, "user", [], $count, 0, "name", "asc");
 
 	if (count($results["hits"]) > 0) {
 		$result = elgg_view_entity_list($results["hits"], [
