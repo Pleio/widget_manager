@@ -10,18 +10,18 @@ if (!empty($feed_url)) {
 	} else {
 		$excerpt = false;
 	}
-	
+
 	if ($widget->show_item_icon == "yes") {
 		$show_item_icon = true;
 	} else {
 		$show_item_icon = false;
 	}
-	
+
 	$rss_count = sanitise_int($widget->rss_count, false);
 	if (empty($rss_count)) {
 		$rss_count = 4;
 	}
-	
+
 	if ($widget->post_date == "yes" || $widget->post_date == "friendly") {
 		$post_date = "friendly";
 	} elseif ($widget->post_date == "date") {
@@ -29,20 +29,21 @@ if (!empty($feed_url)) {
 	} else {
 		$post_date = false;
 	}
-	
+
 	$feed = new SimplePie();
 	$feed->set_feed_url($feed_url);
 	$feed->set_timeout(2);
+	$feed->set_cache_location('/tmp');
 	$feed->init();
-	
+
 	$num_posts_in_feed = $feed->get_item_quantity($rss_count);
-	
+
 	if (($feed_title = $feed->get_title()) && ($widget->show_feed_title == "yes")) {
 		echo "<h3><a href='" . $feed->get_permalink() . "' target='_blank'>" . $feed_title . "</a></h3>";
 	}
-	
+
 	$body = "";
-	
+
 	if (empty($num_posts_in_feed)) {
 		$body = elgg_echo('notfound');
 	} else {
@@ -50,7 +51,7 @@ if (!empty($feed_url)) {
 			if ($excerpt) {
 				$body .= "<div class='widgets_rss_feed_item'>";
 				$body .= "<div><a href='" . $item->get_permalink() . "' target='_blank'>" . $item->get_title() . "</a></div>";
-				
+
 				if ($show_item_icon) {
 					if ($enclosures = $item->get_enclosures()) {
 						foreach ($enclosures as $enclosure) {
@@ -61,14 +62,14 @@ if (!empty($feed_url)) {
 						}
 					}
 				}
-				
+
 				$body .= strip_tags($item->get_description(true), $blog_tags);
 				if ($post_date == "friendly") {
 					$body .= "<div class='widgets_rss_feed_timestamp'>" . elgg_view_friendly_time($item->get_date('U')) . "</div>";
 				} elseif ($post_date == "date") {
 					$body .= "<div class='widgets_rss_feed_timestamp' title='" . $item->get_date('r') . "'>" . substr($item->get_date('r'),0,16) . "</div>";
 				}
-				
+
 				$body .= "</div>";
 			} else {
 				$body .= "<div>";
@@ -84,7 +85,7 @@ if (!empty($feed_url)) {
 			$body .= "<div class='clearfix'></div>";
 		}
 	}
-	
+
 	echo $body;
 } else {
 	echo elgg_echo('widgets:rss:error:notset');
