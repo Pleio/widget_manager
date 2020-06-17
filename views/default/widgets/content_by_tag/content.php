@@ -75,32 +75,32 @@ $values = string_to_tag_array($widget->tags);
 
 if (!empty($values)) {
 	$sanitised_names = array();
+	$name_ids = [];
+	$value_ids = [];
+
 	foreach ($names as $name) {
-		// normalise to 0.
-		if (!$name) {
-			$name = '0';
-		}
-		$sanitised_names[] = '\'' . sanitise_string($name) . '\'';
+		$name_ids[] = add_metastring($name);
 	}
 
-	if ($names_str = implode(',', $sanitised_names)) {
-		$joins[] = "JOIN {$dbprefix}metastrings msn on n_table.name_id = msn.id";
-		$names_where = "(msn.string IN ($names_str))";
+	if ($names_str = implode(',', $name_ids)) {
+		$names_where = "(n_table.name_id IN ($names_str))";
 	}
 
 	$sanitised_values = array();
 	foreach ($values as $value) {
-		// normalize to 0
-		if (!$value) {
-			$value = 0;
+		if ($string_id = get_metastring_id($value, true)) {
+			if (is_array($string_id)) {
+				$value_ids = array_merge($value_ids, $string_id);
+			} else {
+				$value_ids[] = $string_id;
+			}
+		} else {
+			$value_ids[] = 0;
 		}
-		$sanitised_values[] = '\'' . sanitise_string($value) . '\'';
 	}
 
-	$joins[] = "JOIN {$dbprefix}metastrings msv on n_table.value_id = msv.id";
-
 	$values_where .= "(";
-	foreach ($sanitised_values as $i => $value) {
+	foreach ($value_ids as $i => $value) {
 		if ($i !== 0) {
 			if ($tags_option == "and") {
 				// AND
@@ -111,15 +111,13 @@ if (!empty($values)) {
 				}
 
 				$joins[] = "JOIN {$dbprefix}metadata n_table{$i} on e.guid = n_table{$i}.entity_guid";
-				$joins[] = "JOIN {$dbprefix}metastrings msn{$i} on n_table{$i}.name_id = msn{$i}.id";
-				$joins[] = "JOIN {$dbprefix}metastrings msv{$i} on n_table{$i}.value_id = msv{$i}.id";
 
-				$values_where .= " AND (msn{$i}.string IN ($names_str) AND msv{$i}.string = $value)";
+				$values_where .= " AND (n_table{$i}.name_id IN ($names_str) AND n_table{$i}.value_id = $value)";
 			} else {
-				$values_where .= " OR (msv.string = $value)";
+				$values_where .= " OR (n_table.value_id = $value)";
 			}
 		} else {
-			$values_where .= "(msv.string = $value)";
+			$values_where .= "(n_table.value_id = $value)";
 		}
 	}
 	$values_where .= ")";
