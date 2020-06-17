@@ -64,7 +64,13 @@ $joins[] = "JOIN {$dbprefix}metadata n_table on e.guid = n_table.entity_guid";
 $names_where = '';
 $values_where = '';
 
-$names = array("tags", "universal_categories");
+
+$names = array("tags");
+
+if (elgg_is_active_plugin("categories")) {
+	$names[] = "universal_categories";
+}
+
 $values = string_to_tag_array($widget->tags);
 
 if (!empty($values)) {
@@ -130,7 +136,12 @@ if ($excluded_values) {
 		$value_ids[] = add_metastring($excluded_value);
 	}
 
-	$names = array("tags", "universal_categories");
+	$names = array("tags");
+
+	if (elgg_is_active_plugin("categories")) {
+		$names[] = "universal_categories";
+	}
+
 	foreach ($names as $name) {
 		$name_ids[] = add_metastring($name);
 	}
